@@ -169,6 +169,9 @@ learning-gem5:
         - Jason Lowe-Power <jason@lowepower.com>
         - Bobby R. Bruce <bbruce@ucdavis.edu>
 
+lab:
+    status: orphaned
+
 stdlib:
     desc: >-
         The gem5 standard library found under `src/python/gem5`

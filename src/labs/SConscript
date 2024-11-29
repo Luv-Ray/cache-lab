@@ -1,0 +1,13 @@
+Import('*')
+
+SimObject('DirectCache.py', sim_objects=['DirectCache'])
+SimObject('FullyAssocCache.py', sim_objects=['FullyAssocCache'])
+SimObject('SetAssocCache.py', sim_objects=['SetAssocCache'])
+
+Source('direct_cache.cc')
+Source('fully_assoc_cache.cc')
+Source('set_assoc_cache.cc')
+
+DebugFlag('DirectCache')
+DebugFlag('FullyAssocCache')
+DebugFlag('SetAssocCache')
