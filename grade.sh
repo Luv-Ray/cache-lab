@@ -1,9 +1,9 @@
 #!/bin/bash
 
 BUILD_PATH="build/X86/gem5.opt"
-DIRECT_CONFIG_PATH="configs/lab/direct_cache.py"
-FULLY_ASSOC_CONFIG_PATH="configs/lab/fully_assoc_cache.py"
-SET_ASSOC_CONFIG_PATH="configs/lab/set_assoc_cache.py"
+DIRECT_CONFIG_PATH="configs/labs/direct_cache.py"
+FULLY_ASSOC_CONFIG_PATH="configs/labs/fully_assoc_cache.py"
+SET_ASSOC_CONFIG_PATH="configs/labs/set_assoc_cache.py"
 
 echo_red() {
   echo -e "\033[31m$1\033[0m"
