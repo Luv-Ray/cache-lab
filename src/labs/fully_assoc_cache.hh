@@ -264,6 +264,8 @@ private:
   /// True if we used optimized algorithm
   const bool optimizedAlgorithm;
 
+  /// TODO: your customized structure to implement LRU
+
   /// Cache statistics
 protected:
   struct FullyAssocCacheStats : public statistics::Group

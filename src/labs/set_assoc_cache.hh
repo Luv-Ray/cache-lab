@@ -236,7 +236,10 @@ private:
   /// The block size for the cache
   const Addr blockSize;
 
-  /// Number of blocks in the cache (size of cache / block size)
+  /// The size of each set
+  const Addr setSize;
+
+  /// Number of blocks in the cache (size of cache / (block size * set size))
   const unsigned capacity;
 
   /// Instantiation of the CPU-side port
@@ -259,7 +262,7 @@ private:
   Tick missTime;
 
   /// An incredibly simple cache storage. Maps block addresses to data
-  // TODO: cacheStore;
+  /// TODO: cacheStore;
 
   /// Cache statistics
 protected:

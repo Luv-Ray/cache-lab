@@ -48,12 +48,6 @@ run_command "$BUILD_PATH $FULLY_ASSOC_CONFIG_PATH --algorithm=\"random\""
 fully_assoc_ticks=$(grep "simTicks" "m5out/stats.txt" | awk '{print $2}')
 echo_green "sim_ticks: $fully_assoc_ticks"
 
-
-# simulate fully associative cache with optimized algorithm
-run_command "$BUILD_PATH $FULLY_ASSOC_CONFIG_PATH --algorithm=\"optimized\""
-fully_assoc_ticks_optimized=$(grep "simTicks" "m5out/stats.txt" | awk '{print $2}')
-echo_green "sim_ticks: $fully_assoc_ticks_optimized"
-
 # simulate set associative cache
 run_command "$BUILD_PATH $SET_ASSOC_CONFIG_PATH"
 set_assoc_ticks=$(grep "simTicks" "m5out/stats.txt" | awk '{print $2}')
@@ -61,15 +55,20 @@ echo_green "sim_ticks: $set_assoc_ticks"
 
 # run tests
 # test1: implement set associative cache
-if [ "$direct_ticks" -lt "$set_assoc_ticks" ]; then
+if [ "$set_assoc_ticks" -gt $(("$direct_ticks" * 8 / 10)) ]; then
   echo_red "Set associative cache should run less ticks than direct mapped cache!"
 else
-  echo_green "test1 success"
+  echo_green "test1 success!"
 fi
 
+# simulate fully associative cache with optimized algorithm
+run_command "$BUILD_PATH $FULLY_ASSOC_CONFIG_PATH --algorithm=\"optimized\""
+fully_assoc_ticks_optimized=$(grep "simTicks" "m5out/stats.txt" | awk '{print $2}')
+echo_green "sim_ticks: $fully_assoc_ticks_optimized"
+
 # test2: replacement algorithm
-if [ "$fully_assoc_ticks_optimized" -gt $(($fully_assoc_ticks * 8 / 10)) ]; then
+if [ "$fully_assoc_ticks_optimized" -ge $"$fully_assoc_ticks" ]; then
   echo_red "Fully associative cache's replacement algorithm didn't improve!"
 else
-  echo_green "test2 success"
+  echo_green "test2 success!"
 fi

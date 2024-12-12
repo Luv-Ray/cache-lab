@@ -9,10 +9,12 @@ namespace gem5 {
 
 SetAssocCache::SetAssocCache(const SetAssocCacheParams &params)
     : ClockedObject(params), latency(params.latency),
-      blockSize(params.system->cacheLineSize()),
-      capacity(params.size / blockSize),
+      blockSize(params.system->cacheLineSize()), setSize(8),
+      capacity(params.size / (blockSize * setSize)),
       memPort(params.name + ".mem_side", this), blocked(false),
       originalPacket(nullptr), waitingPortId(-1), stats(this) {
+  /// TODO: init your structure (optional)
+
   // Since the CPU side ports are a vector of ports, create an instance of
   // the CPUSidePort for each connection. This member of params is
   // automatically created depending on the name of the vector port and

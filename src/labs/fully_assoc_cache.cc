@@ -14,6 +14,8 @@ FullyAssocCache::FullyAssocCache(const FullyAssocCacheParams &params)
       memPort(params.name + ".mem_side", this), blocked(false),
       originalPacket(nullptr), waitingPortId(-1), stats(this),
       optimizedAlgorithm(params.optimized_algorithm) {
+  /// TODO: init your structure here (optional)
+
   // Since the CPU side ports are a vector of ports, create an instance of
   // the CPUSidePort for each connection. This member of params is
   // automatically created depending on the name of the vector port and
@@ -280,6 +282,9 @@ bool FullyAssocCache::accessFunctional(PacketPtr pkt) {
   Addr block_addr = pkt->getBlockAddr(blockSize);
   auto it = cacheStore.find(block_addr);
   if (it != cacheStore.end()) {
+    if (optimizedAlgorithm) {
+      panic("TODO: hit block")
+    }
     if (pkt->isWrite()) {
       // Write the data into the block in the cache
       pkt->writeDataToBlock(it->second, blockSize);
@@ -304,7 +309,7 @@ void FullyAssocCache::insert(PacketPtr pkt) {
 
   if (cacheStore.size() >= capacity) {
     if (optimizedAlgorithm) {
-      panic("TODO: replecment algorithm");
+      panic("TODO: evict block");
     } else {
       // Select random thing to evict. This is a little convoluted since we
       // are using a std::unordered_map. See http://bit.ly/2hrnLP2
@@ -342,6 +347,10 @@ void FullyAssocCache::insert(PacketPtr pkt) {
 
   // Insert the data and address into the cache store
   cacheStore[pkt->getAddr()] = data;
+
+  if (optimizedAlgorithm) {
+    panic("TODO: insert block");
+  }
 
   // Write the data into the cache
   pkt->writeDataToBlock(data, blockSize);
