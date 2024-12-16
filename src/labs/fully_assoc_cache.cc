@@ -283,7 +283,7 @@ bool FullyAssocCache::accessFunctional(PacketPtr pkt) {
   auto it = cacheStore.find(block_addr);
   if (it != cacheStore.end()) {
     if (optimizedAlgorithm) {
-      panic("TODO: hit block")
+      panic("TODO: hit block");
     }
     if (pkt->isWrite()) {
       // Write the data into the block in the cache
